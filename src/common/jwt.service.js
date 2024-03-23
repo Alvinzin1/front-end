@@ -8,7 +8,7 @@ export const getToken = function () {
 };
 
 export const setToken = function (token) {
-    cookie.set(KEY, token, '8h');
+    cookie.set(KEY, token, 3600);
 };
 
 export const destroyToken = function () {

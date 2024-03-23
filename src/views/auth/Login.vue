@@ -33,7 +33,8 @@
 </template>
 
 <script>
-import http from '@/services/http.js';
+import Api from '@/common/api.service.js';
+import { setToken } from '@/common/jwt.service';
 
 export default {
     name: "Login",
@@ -45,21 +46,21 @@ export default {
     },
     methods: {
     submitForm() {
-      // Enviar dados de login para o backend Laravel
-      http.post('login', {
-        email: this.email,
-        password: this.password
-      })
-      .then(response => {
-        // Tratar a resposta do backend, por exemplo, redirecionar para a página inicial
-        // Você também pode armazenar o token JWT retornado pelo backend para autenticação posterior
-        console.log(response.data);
-        this.$router.push({ name: 'Home' }); // Supondo que 'home' seja o nome da sua rota inicial
-      })
-      .catch(error => {
-        // Tratar erros de autenticação, exibir mensagens de erro, etc.
-        console.error(error);
-      });
+        // Enviar dados de login para o backend Laravel
+        Api.post('/login', {
+            email: this.email,
+            password: this.password
+        })
+        .then(response => {
+            // Tratar a resposta do backend, por exemplo, redirecionar para a página inicial
+            // Você também pode armazenar o token JWT retornado pelo backend para autenticação posterior
+            setToken(response.data.access_token);
+            this.$router.push({ name: 'Home' });
+        })
+        .catch(error => {
+            // Tratar erros de autenticação, exibir mensagens de erro, etc.
+            console.error(error);
+        });
     }
   }
 }

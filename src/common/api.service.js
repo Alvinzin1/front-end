@@ -7,7 +7,7 @@ import jwtService from "@/common/jwt.service";
 
 const app = createApp(App).use(VueAxios, axios);
 
-function defineService(url = 'https://teste.com') {
+function defineService(url = 'http://127.0.0.1:8000/api') {
     const validate = (data) => {
         if (data?.status == 46 || data?.status == 401 || data?.status == 463 || data?.status == 498) {
         }
