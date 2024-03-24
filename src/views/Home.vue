@@ -1,6 +1,6 @@
 <template>
     <!-- Seção de produtos mais baratos -->
-    <section class="text-gray-600 body-font  mt-5">
+    <section class="text-gray-600 body-font mt-5">
         <div class="container mx-auto mb-5">
             <div class="bg-primary rounded-lg mb-1 px-3">
                 <span class="font-bold text-1xl text-white">Promoções do dia</span>

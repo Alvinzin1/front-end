@@ -1,8 +1,13 @@
 import { createStore } from 'vuex'
-import anexo from './anexo';
+
+import auth from './auth';
+// import produstos from './produtos';
+// import lojas from './produtos';
 
 const modules = {
-    anexo,
+    auth,
+    // produstos,
+    // lojas,
 };
 
 const store = createStore({ modules });
