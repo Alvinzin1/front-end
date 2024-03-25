@@ -7,20 +7,14 @@
                     <span class="sr-only">Menu</span><i class="fa-solid fa-bars"></i>
                 </button>
                 <div :class="[isNavbarOpen ? 'block' : 'hidden']" class="w-full block md:flex md:flex-wrap md:items-center md:justify-between md:w-auto md:relative md:mt-0">
-                    <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 gap-y-1 border border-indigo-100 rounded-lg bg-indigo-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-zinc-50 dark:bg-teal-800 md:dark:bg-dark dark:border-teal-700">
+                    <ul class="flex flex-col font-medium p-4 md:p-0 mt-4 mx-4 gap-y-1 border border-indigo-100 rounded-lg bg-indigo-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-light dark:bg-teal-800 md:dark:bg-dark dark:border-teal-700">
                         <li>
                             <router-link to="/" class="block py-2 px-3 text-light bg-secondary rounded md:bg-transparent md:text-primary md:p-0 md:dark:text-white dark:bg-primary-dark md:dark:bg-transparent">Inicio</router-link>
                         </li>
                         <li>
-                            <router-link to="/about" class="block py-2 px-3 text-light bg-secondary rounded md:bg-transparent md:text-primary md:p-0 md:dark:text-white dark:bg-primary-dark md:dark:bg-transparent">Catalogo</router-link>
+                            <router-link to="/catalogo" class="block py-2 px-3 text-light bg-secondary rounded md:bg-transparent md:text-primary md:p-0 md:dark:text-white dark:bg-primary-dark md:dark:bg-transparent">Catalogo</router-link>
                         </li>
                     </ul>
-                    <div class="mx-2">
-                            <input type="text" placeholder="Search..." class="border md:w-auto border-primary rounded-sm py-1 px-3 mx-1 focus:outline-none hover:bg-zinc-100 text-base mt-4 md:mt-0">
-                            <button class="bg-primary text-white rounded inline-flex items-center border-0 py-2 px-3 mx-1 focus:outline-none text-base mt-4 md:mt-0">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                    </div>
                     <div class="w-full flex flex-wrap items-center justify-between md:w-auto">
                         <template v-if="!$store.getters.isAuthenticated">
                             <router-link to="/login" class="bg-primary w-1/2 text-white rounded inline-flex items-center border-0 py-1 px-3 mx-1 focus:outline-none hover:bg-gray-200 text-base mt-4 md:mt-0 md:w-auto">
@@ -32,20 +26,20 @@
                         </template>
                         <template v-else>
                             <div class="bg-primary w-1/2 text-white rounded inline-flex items-center border-0 py-1 px-3 focus:outline-none text-base mt-4 md:mt-0 md:w-auto">
-                                R$ {{ userData.wallet }}
+                                R$ {{ userFromStorage.wallet }}
                             </div>
                             <!-- Botão do dropdown -->
-                            <div class="w-1/2 md:w-auto relative ">
+                            <div class="w-1/2 md:w-auto relative">
                                 <button @click="toggleDropdown" id="menu" class="bg-primary w-full text-white rounded inline-flex items-center border-0 py-1 px-3 mx-1 focus:outline-none text-base mt-4 md:mt-0">
-                                {{ userData.name }} <i class="fa-solid fa-caret-down p-1"></i>
+                                {{ userFromStorage.name }} <i class="fa-solid fa-caret-down p-1"></i>
                                 </button>
                                 <!-- Dropdown -->
                                 <div v-if="isDropdownOpen" class="inset-x-0 absolute w-full right-0 mt-2 mr-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                     <div class="py-1 text-center" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                        <routerLink to="/cadastro-loja" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
-                                            Cadastro de Loja
+                                        <routerLink to="/lojas" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                            Lojas
                                         </routerLink>
-                                        <button @click="logout" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Logout</button>
+                                        <button @click="logout" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900" role="menuitem">Sair da conta</button>
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +56,6 @@
 
 <script>
 import { LOGOUT } from '@/store/auth/actions.type';
-const USER_STORAGE = 'user';
 
 export default {
     data() {
@@ -70,7 +63,6 @@ export default {
             isDarkMode: false,
             isNavbarOpen: false,
             isDropdownOpen: false,
-            userData: null
         };
     },
     methods: {
@@ -102,21 +94,20 @@ export default {
             this.$store.dispatch(LOGOUT)
             .then(() => {
                 this.$router.push('/');
-            })
-            .catch(error => {
+            }).catch(error => {
                 console.error(error);
             });
-        },
+        }
+    },
+    computed: {
+        userFromStorage() {
+            return this.$store.getters.currentUser;
+        }
     },
     created() {
         const darkMode = localStorage.getItem('darkMode');
         if (darkMode === 'dark') {
             this.toggleDarkMode();
-        }
-        // Carrega os dados do usuário do localStorage
-        const userData = localStorage.select(USER_STORAGE);
-        if (userData) {
-            this.userData = userData;
         }
     },
     mounted() {

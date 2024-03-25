@@ -1,11 +1,10 @@
-import router from "@/router";
 import JwtService from "@/common/jwt.service";
 import API from "@/common/api.service";
 
-import { LOGIN, LOGOUT } from "./actions.type";
+import { LOGIN, LOGOUT, REGISTER } from "./actions.type";
 import { SET_AUTH, PURGE_AUTH } from "./mutations.type";
 
-const USER_STORAGE = [];
+const USER_STORAGE = `user`;
 
 Storage.prototype.select = function (key) {
     return JSON.parse(this.getItem(key));
@@ -42,9 +41,29 @@ const actions = {
                 });
         });
     },
-    [LOGOUT](context) {
-        context.commit(PURGE_AUTH);
-        router.push("/");
+    [REGISTER](context, credentials) {
+        return new Promise((resolve, reject) => {
+            API.post('/register', credentials)
+                .then(({ data }) => {
+                    context.commit(SET_AUTH, data);
+                    resolve();
+                })
+                .catch(({ response }) => {
+                    reject(response);
+                });
+        });
+    },
+    [LOGOUT](context, credentials) {
+        return new Promise((resolve, reject) => {
+            API.post('/logout', credentials)
+                .then(() => {
+                    context.commit(PURGE_AUTH);
+                    resolve();
+                })
+                .catch(({ response }) => {
+                    reject(response);
+                });
+        });
     }
 };
 
@@ -60,7 +79,7 @@ const mutations = {
         state.user = {};
         state.isAuthenticated = false;
         JwtService.destroyToken();
-        localStorage.removeItem(USER_STORAGE, state.user);
+        localStorage.removeItem(USER_STORAGE);
     }
 };
 
