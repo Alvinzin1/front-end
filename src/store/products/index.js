@@ -3,6 +3,7 @@ import API from "@/common/api.service";
 import { 
     INDEX, 
     STORE, 
+    SHOW,
     UPDATE, 
     DELETE, 
     GET_PRODUCTS_CHEAP, 
@@ -36,6 +37,17 @@ const actions = {
     [INDEX](context, params) {
         return new Promise((resolve, reject) => {
             API.get("/product/index", params)
+                .then(({ data }) => {
+                    resolve(data);
+                })
+                .catch(({ response }) => {
+                    reject(response);
+                });
+        });
+    },
+    [SHOW](context, params) {
+        return new Promise((resolve, reject) => {
+            API.get("/product/show/" + params)
                 .then(({ data }) => {
                     resolve(data);
                 })

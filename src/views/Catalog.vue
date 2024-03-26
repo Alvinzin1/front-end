@@ -16,8 +16,7 @@
 </template>
 
 <script>
-import { GET_PRODUCTS_ALL } from '@/store/products/actions.type';
-import { GET_PRODUCTS_BY_SEARCH } from '@/store/products/actions.type';
+import { GET_PRODUCTS_ALL, GET_PRODUCTS_BY_SEARCH } from '@/store/products/actions.type';
 import ItemCard from '@/components/ItemCard.vue';
 
 export default {

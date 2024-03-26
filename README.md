@@ -1,29 +1,41 @@
-# front-end
+# Sistema de Cadastro de Estabelecimentos, Produtos e Compras
 
-This template should help get you started developing with Vue 3 in Vite.
+Este projeto consiste no desenvolvimento do front-end de um sistema de cadastro de estabelecimentos, produtos e compras utilizando Vue.js, Tailwind CSS, FontAwesome e Vite.
 
-## Recommended IDE Setup
+## Configuração Recomendada do IDE
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Recomendamos a utilização do [Visual Studio Code (VSCode)](https://code.visualstudio.com/) com a extensão [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) instalada (e desative a extensão Vetur, se estiver instalada).
 
-## Customize configuration
+## Personalização da Configuração
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Para personalizar a configuração do projeto, consulte [Referência de Configuração do Vite](https://vitejs.dev/config/).
 
-## Project Setup
+## Configuração do Projeto
+
+Execute o seguinte comando para instalar as dependências necessárias:
 
 ```sh
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+## Desenvolvimento Local
+
+Para compilar e executar o projeto localmente com hot-reload, utilize o seguinte comando:
 
 ```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Isso iniciará um servidor de desenvolvimento e abrirá o projeto em seu navegador padrão.
+
+## Compilação e Minificação para Produção
+
+Para compilar e minificar os arquivos para produção, utilize o seguinte comando:
 
 ```sh
 npm run build
 ```
+
+Isso criará uma versão otimizada do projeto na pasta `dist`, pronta para ser implantada em um servidor de produção.
+
+Este projeto foi configurado inicialmente com base no template padrão do Vite para Vue 3. Consulte a documentação oficial para obter mais detalhes sobre a configuração e desenvolvimento com Vue.js e Vite.

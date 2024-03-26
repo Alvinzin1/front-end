@@ -60,7 +60,46 @@ const routes = [
       }
     },
     props: true
-  }
+  },
+  {
+    path: '/produtos/show/:productId',
+    name: 'ProductsShow',
+    component: () => import('../views/product/ProductShow.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+    props: true
+  },
+  {
+    path: '/pedidos',
+    name: 'Request',
+    component: () => import('../views/request/RequestIndex.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+    props: true
+  },
+  {
+    path: '/loja/pedidos/:storeId',
+    name: 'StoreRequests',
+    component: () => import('../views/store/StoreRequest.vue'),
+    beforeEnter: (to, from, next) => {
+      if (store.getters.isAuthenticated) {
+        next();
+      } else {
+        next('/login');
+      }
+    },
+    props: true
+  },
 ];
 
 const router = createRouter({

@@ -2,7 +2,7 @@ import JwtService from "@/common/jwt.service";
 import API from "@/common/api.service";
 
 import { LOGIN, LOGOUT, REGISTER } from "./actions.type";
-import { SET_AUTH, PURGE_AUTH } from "./mutations.type";
+import { SET_AUTH, PURGE_AUTH, UPDATE_USER_WALLET } from "./mutations.type";
 
 const USER_STORAGE = `user`;
 
@@ -80,7 +80,10 @@ const mutations = {
         state.isAuthenticated = false;
         JwtService.destroyToken();
         localStorage.removeItem(USER_STORAGE);
-    }
+    },
+    [UPDATE_USER_WALLET](state, newValue) {
+        state.user.wallet = newValue;
+    },
 };
 
 export default {

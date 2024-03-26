@@ -36,6 +36,9 @@
                                 {{ store.address }}
                             </td>
                             <td class="text-center text-white flex gap-1 p-4 items-center justify-center">
+                                <router-link :to="{ name: 'StoreRequests', params: { storeId: store.id } }" class="border px-2 py-1 rounded bg-primary" title="Ver pedidos da loja" ref="link" >
+                                    <i class="fa-solid fa-list"></i>
+                                </router-link>
                                 <router-link :to="{ name: 'Products', params: { storeId: store.id } }" class="border px-2 py-1 rounded bg-primary" title="Ver produtos" ref="link" >
                                     <i class="fa-solid fa-cart-shopping"></i>
                                 </router-link>

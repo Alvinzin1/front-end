@@ -36,6 +36,9 @@
                                 <!-- Dropdown -->
                                 <div v-if="isDropdownOpen" class="inset-x-0 absolute w-full right-0 mt-2 mr-auto rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                                     <div class="py-1 text-center" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                        <routerLink to="/pedidos" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
+                                            Meus Pedidos
+                                        </routerLink>
                                         <routerLink to="/lojas" class="w-full block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900">
                                             Lojas
                                         </routerLink>
